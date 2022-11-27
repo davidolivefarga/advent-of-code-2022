@@ -18,37 +18,38 @@ Every day has its own folder with the following files:
 
 _Note_: both puzzles always share the same input, that's why there's only one input file.
 
-To avoid creating so many files manually, I implemented two scripts to automatize the process.
-
-On one hand, `npm run create-files` creates the folder and files for a given day.
-This includes fetching the puzzles input from the website and copying it in the `input.txt` file.
-
-Example:
-
-```sh
-# Creates the folder and files for day 1
-npm run create-files -- 1
-```
-
-On the other hand, `npm run add-stars`: adds the puzzle stars of a given day to the main README.
-
-Example:
-
-```sh
-# Adds the stars for day 1
-npm run add-stars -- 1
-```
-
 ## How to run
 
-To run any solution, use the `npm run solution` script specifying the day and the puzzle.
+There are three commands:
 
-Example:
+- `npm run create-files`: creates the folder and files for a given day.
 
-```sh
-# Runs the solution of Day 1 - Puzzle 2
-npm run solution -- 1 2
-```
+  Example:
+
+  ```sh
+  # Creates the folder and files for day 1
+  npm run create-files -- 1
+  ```
+
+  _Note_: there's not a unique input to each puzzle, it depends on the user. Hence, in order to fetch the puzzle input you will need to authenticate yourself. You can do so by storing your session cookie in a `.env` variable called `AOC_SESSION_COOKIE` (that can be obtained by inspecting the network requests to the Advent of Code website).
+
+- `npm run add-stars`: adds the puzzle stars of a given day to the main README.
+
+  Example:
+
+  ```sh
+  # Adds the stars for day 1
+  npm run add-stars -- 1
+  ```
+
+- `npm run solution`: run any solution specifying the day and the puzzle.
+
+  Example:
+
+  ```sh
+  # Runs the solution of Day 1 - Puzzle 2
+  npm run solution -- 1 2
+  ```
 
 ## Solved puzzles
 
