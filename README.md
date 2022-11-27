@@ -27,7 +27,7 @@ There are three commands:
   Example:
 
   ```sh
-  # Creates the folder and files for day 1
+  # Creates the folder and files for Day 1
   npm run create-files -- 1
   ```
 
@@ -38,7 +38,7 @@ There are three commands:
   Example:
 
   ```sh
-  # Adds the stars for day 1
+  # Adds the stars for Day 1
   npm run add-stars -- 1
   ```
 
