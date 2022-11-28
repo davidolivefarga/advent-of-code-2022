@@ -31,7 +31,7 @@ There are three commands:
   npm run create-files -- 1
   ```
 
-  _Note_: there's not a unique input to each puzzle, it depends on the user. Hence, in order to fetch the puzzle input you will need to authenticate yourself. You can do so by storing your session cookie in a `.env` variable called `AOC_SESSION_COOKIE` (that can be obtained by inspecting the network requests to the Advent of Code website).
+  _Note_: since the puzzle input depends on the user, you will need to authenticate yourself in order to fetch it. You can do so by storing your session cookie in a `.env` variable called `AOC_SESSION_COOKIE`, obtained by inspecting the network requests to the Advent of Code website.
 
 - `npm run add-stars`: adds the puzzle stars of a given day to the main README.
 
@@ -42,7 +42,7 @@ There are three commands:
   npm run add-stars -- 1
   ```
 
-- `npm run solution`: run any solution specifying the day and the puzzle.
+- `npm run solution`: runs any solution specifying the day and the puzzle.
 
   Example:
 
