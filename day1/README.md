@@ -4,7 +4,7 @@ You can find the puzzles [here](https://adventofcode.com/2022/day/1).
 
 ## ✍🏼 Input
 
-A list containing groups of positive integers
+A list containing groups of positive integers.
 
 Example:
 
@@ -56,7 +56,7 @@ Find the top three groups whose elements have the biggest sum and calculate the 
 
 ### Solution
 
-If you don't care about performance, you can generate a list containing the sum of each group, sort it and then get the first three elements. However, given a list of size `n`, this would take `O(nlogn)` steps due to the sorting of the array. It's more efficient to do one pass and keep track of the top three sums, as this takes `O(n)` steps.
+If you don't care about performance, you can generate a list containing the sum of each group, sort it and then get the first three elements. However, given a list of size `n`, this would take `O(nlogn)` steps due to the sorting of the array. It's more efficient to do one pass and keep track of the top three sums, as this only takes `O(n)` steps.
 
 ```js
 const input = require("./input");
