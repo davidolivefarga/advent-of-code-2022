@@ -55,6 +55,7 @@ There are three commands:
 
 Here's the list of all days, along with the stars obtained in each of them.
 
-| Day                               |  Stars  |
-| :-------------------------------- | :-----: |
-| [Day 1: Calorie Counting](./day1) | ⭐️ ⭐️ |
+| Day                                  |  Stars  |
+| :----------------------------------- | :-----: |
+| [Day 1: Calorie Counting](./day1)    | ⭐️ ⭐️ |
+| [Day 2: Rock Paper Scissors](./day2) | ⭐️ ⭐️ |
