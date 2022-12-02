@@ -5,8 +5,8 @@ const rawInputPath = path.join(__dirname, "input.txt");
 const rawInput = fs.readFileSync(rawInputPath, "utf8");
 
 const input = rawInput
-	.trim()
-	.split(/\n/)
-	.map((line) => line.split(" "));
+    .trim()
+    .split(/\n/)
+    .map((line) => line.split(" "));
 
 module.exports = input;

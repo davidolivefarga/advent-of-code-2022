@@ -12,14 +12,14 @@ const mainReadmePath = path.join(__dirname, "../README.md");
 const mainReadme = fs.readFileSync(mainReadmePath).toString();
 
 https.get(`https://adventofcode.com/2022/day/${dayNumber}`, (res) => {
-	res.on("data", (data) => {
-		const day = data.toString();
-		const dayTitle = day.match(/<h2>--- (.*) ---<\/h2>/)[1];
+    res.on("data", (data) => {
+        const day = data.toString();
+        const dayTitle = day.match(/<h2>--- (.*) ---<\/h2>/)[1];
 
-		const stars = `\n| [${dayTitle}](./day${dayNumber}) | ⭐️ ⭐️ |\n`;
+        const stars = `\n| [${dayTitle}](./day${dayNumber}) | ⭐️ ⭐️ |\n`;
 
-		const updatedMainReadme = mainReadme.trim() + stars;
+        const updatedMainReadme = mainReadme.trim() + stars;
 
-		fs.writeFileSync(mainReadmePath, updatedMainReadme);
-	});
+        fs.writeFileSync(mainReadmePath, updatedMainReadme);
+    });
 });

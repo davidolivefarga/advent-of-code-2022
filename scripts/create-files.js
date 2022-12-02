@@ -21,60 +21,60 @@ fs.writeFileSync(`${folderName}/puzzle1.js`, createPuzzleSkeleton());
 fs.writeFileSync(`${folderName}/puzzle2.js`, createPuzzleSkeleton());
 
 https.get(`https://adventofcode.com/2022/day/${dayNumber}`, (res) => {
-	res.on("data", (data) => {
-		const day = data.toString();
-		const dayTitle = day.match(/<h2>--- (.*) ---<\/h2>/)[1];
+    res.on("data", (data) => {
+        const day = data.toString();
+        const dayTitle = day.match(/<h2>--- (.*) ---<\/h2>/)[1];
 
-		fs.writeFileSync(
-			`${folderName}/README.md`,
-			createReadmeSkeleton(dayNumber, dayTitle)
-		);
-	});
+        fs.writeFileSync(
+            `${folderName}/README.md`,
+            createReadmeSkeleton(dayNumber, dayTitle)
+        );
+    });
 });
 
 https.get(
-	`https://adventofcode.com/2022/day/${dayNumber}/input`,
-	{
-		headers: {
-			Cookie: `session=${sessionCookie}`,
-		},
-	},
-	(res) => {
-		res.on("data", (data) => {
-			const input = data.toString();
+    `https://adventofcode.com/2022/day/${dayNumber}/input`,
+    {
+        headers: {
+            Cookie: `session=${sessionCookie}`,
+        },
+    },
+    (res) => {
+        res.on("data", (data) => {
+            const input = data.toString();
 
-			fs.writeFileSync(`${folderName}/input.txt`, input);
-		});
-	}
+            fs.writeFileSync(`${folderName}/input.txt`, input);
+        });
+    }
 );
 
 function createInputSkeleton() {
-	return formatText(
-		`
+    return formatText(
+        `
         const fs = require("fs");
         const path = require("path");
-            
+
         const rawInputPath = path.join(__dirname, "input.txt");
         const rawInput = fs.readFileSync(rawInputPath, "utf8");
-            
+
         const input = rawInput.trim();
-            
+
         module.exports = input;
         `
-	);
+    );
 }
 
 function createPuzzleSkeleton() {
-	return formatText(
-		`
+    return formatText(
+        `
         const input = require("./input");
         `
-	);
+    );
 }
 
 function createReadmeSkeleton(dayNumber, dayTitle) {
-	return formatText(
-		`
+    return formatText(
+        `
         # ${dayTitle}
 
         You can find the puzzles [here](https://adventofcode.com/2022/day/${dayNumber}).
@@ -117,16 +117,16 @@ function createReadmeSkeleton(dayNumber, dayTitle) {
         // TODO: Add second puzzle solution
         \`\`\`
         `
-	);
+    );
 }
 
 function formatText(text) {
-	const textRows = text
-		.split("\n")
-		// Removing the first row because we don't want
-		// an empty line at the beginning of the file
-		.slice(1)
-		.map((r) => r.trim());
+    const textRows = text
+        .split("\n")
+        // Removing the first row because we don't want
+        // an empty line at the beginning of the file
+        .slice(1)
+        .map((r) => r.trim());
 
-	return textRows.join("\n");
+    return textRows.join("\n");
 }

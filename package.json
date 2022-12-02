@@ -1,30 +1,30 @@
 {
-	"name": "advent-of-code-2022",
-	"version": "1.0.0",
-	"description": "Solutions to Advent of Code 2022, written in Javascript",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/davidolivefarga/advent-of-code-2022.git"
-	},
-	"scripts": {
-		"solution": "node scripts/solution",
-		"create-files": "node scripts/create-files",
-		"add-stars": "node scripts/add-stars"
-	},
-	"devDependencies": {
-		"dotenv": "^10.0.0"
-	},
-	"keywords": [
-		"aoc",
-		"aoc-2022",
-		"aoc-2022-solutions",
-		"advent-of-code",
-		"advent-of-code-2022",
-		"advent-of-code-2022-solutions"
-	],
-	"engines": {
-		"node": ">=17.7.2"
-	},
-	"author": "David Olivé",
-	"license": "MIT"
+    "name": "advent-of-code-2022",
+    "version": "1.0.0",
+    "description": "Solutions to Advent of Code 2022, written in Javascript",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/davidolivefarga/advent-of-code-2022.git"
+    },
+    "scripts": {
+        "solution": "node scripts/solution",
+        "create-files": "node scripts/create-files",
+        "add-stars": "node scripts/add-stars"
+    },
+    "devDependencies": {
+        "dotenv": "^10.0.0"
+    },
+    "keywords": [
+        "aoc",
+        "aoc-2022",
+        "aoc-2022-solutions",
+        "advent-of-code",
+        "advent-of-code-2022",
+        "advent-of-code-2022-solutions"
+    ],
+    "engines": {
+        "node": ">=17.7.2"
+    },
+    "author": "David Olivé",
+    "license": "MIT"
 }

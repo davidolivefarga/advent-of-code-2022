@@ -10,11 +10,11 @@ Example:
 
 ```js
 const input = [
-	[1000, 2000, 3000],
-	[4000],
-	[5000, 6000],
-	[7000, 8000, 9000],
-	[10000],
+    [1000, 2000, 3000],
+    [4000],
+    [5000, 6000],
+    [7000, 8000, 9000],
+    [10000],
 ];
 ```
 
@@ -32,17 +32,17 @@ Straight-forward solution, nothing interesting to add.
 const input = require("./input");
 
 function solve(groups) {
-	let maxSum = Number.NEGATIVE_INFINITY;
+    let maxSum = Number.NEGATIVE_INFINITY;
 
-	for (let group of groups) {
-		const sum = group.reduce((curr, acc) => curr + acc, 0);
+    for (let group of groups) {
+        const sum = group.reduce((curr, acc) => curr + acc, 0);
 
-		if (sum > maxSum) {
-			maxSum = sum;
-		}
-	}
+        if (sum > maxSum) {
+            maxSum = sum;
+        }
+    }
 
-	return maxSum;
+    return maxSum;
 }
 
 console.log(solve(input));
@@ -62,23 +62,23 @@ If you don't care about performance, you can generate a list containing the sum 
 const input = require("./input");
 
 function solve(groups) {
-	let max1 = Number.NEGATIVE_INFINITY;
-	let max2 = Number.NEGATIVE_INFINITY;
-	let max3 = Number.NEGATIVE_INFINITY;
+    let max1 = Number.NEGATIVE_INFINITY;
+    let max2 = Number.NEGATIVE_INFINITY;
+    let max3 = Number.NEGATIVE_INFINITY;
 
-	for (let group of groups) {
-		const sum = group.reduce((curr, acc) => curr + acc, 0);
+    for (let group of groups) {
+        const sum = group.reduce((curr, acc) => curr + acc, 0);
 
-		if (sum > max1) {
-			[max1, max2, max3] = [sum, max1, max2];
-		} else if (sum > max2) {
-			[max1, max2, max3] = [max1, sum, max2];
-		} else if (sum > max3) {
-			[max1, max2, max3] = [max1, max2, sum];
-		}
-	}
+        if (sum > max1) {
+            [max1, max2, max3] = [sum, max1, max2];
+        } else if (sum > max2) {
+            [max1, max2, max3] = [max1, sum, max2];
+        } else if (sum > max3) {
+            [max1, max2, max3] = [max1, max2, sum];
+        }
+    }
 
-	return max1 + max2 + max3;
+    return max1 + max2 + max3;
 }
 
 console.log(solve(input));
