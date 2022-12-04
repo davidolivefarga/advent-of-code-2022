@@ -83,7 +83,7 @@ Count the number of pairs whose ranges are overlapping.
 
 ### Solution
 
-There are several positionings that will result on both ranges overlapping, so I always think it's faster to think about the opposite case and the negate the condition. There are two possibilities to have both ranges _not_ overlap:
+There are several positionings that will result on both ranges overlapping, so I always think it's faster to think about the opposite case and then negate the condition. There are two possibilities to have both ranges _not_ overlap:
 
 1. `[x1, y1]` is on the left of `[x2, y2]`:
 
