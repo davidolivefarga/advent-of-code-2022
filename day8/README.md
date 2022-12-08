@@ -115,7 +115,7 @@ Now, the question you need to ask yourself is: what information do I need to com
 -   For `(0, 1)`, I need to know that it will be blocked by `(3, 0)` -> viewing distance: 1
 -   For `(3, 2)`, I need to know that it will be blocked by `(3, 0)` -> viewing distance: 2
 -   For `(7, 3)`, I need to know that it will be blocked by `(∞, 0)` -> viewing distance: 3
--   For `(3, 4)`, I need to know that it will be blocked by `(3, 2)` -> viewing distance: 2
+-   For `(3, 4)`, I need to know that it will be blocked by `(7, 3)` -> viewing distance: 1
 
 First, we notice that if a tree `(h1, b1)` is blocked by a tree `(h2, b2)`, then the viewing distance of `h1` in that direction will be `b1 - b2` (we count all trees behind `h1` and then subtract all trees behind `h2`, the blocking tree). So, we only care about the blocker trees. This means that as soon as we reach a tree of height `h`, we no longer care about the trees with height smaller than `h`, because we know they will never be blocker: if `h` itself is not blocking a future tree, trees with smaller heights won't block it either.
 
