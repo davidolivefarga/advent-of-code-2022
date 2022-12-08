@@ -61,7 +61,7 @@ It is enough to:
 -   Keep track of the current directory path
 -   Keep track of the visited files (they could appear more than once)
 
-With this information, everytime we encounter a new file we know its path because we know the current directory path. If it hasn't been visited yet, we can increase the size of the current directory and all of its parent directories.
+With this information, every time we encounter a new file we know its path because we know the current directory path. If it hasn't been visited yet, we can increase the size of the current directory and all of its parent directories.
 
 Once we have the size of each directory, we just need to loop through them in order to calculate the desired answer.
 
