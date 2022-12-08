@@ -32,7 +32,7 @@ Find the number of trees that are visible from outside the grid.
 
 The idea is to loop over all rows and columns from both possible directions (left/right for a row, up/down for a column) and keep track of the highest tree we found so far. If the next tree is blocked (equal or smaller size) we stop looping; else, if the next tree is not blocked, we add it to the count it.
 
-To avoid counting the same tree multiple times, we're identifying each tree with a unique string generated from its coordinates and registering it in a set.
+To avoid counting the same tree multiple times, we're identifying each tree with a unique string generated from its row/column and registering it in a set.
 
 ```js
 const input = require("./input");
@@ -83,7 +83,7 @@ Find the highest scenic score amongst all trees.
 
 ### Solution
 
-My first solution was the straight-forward one: for each tree, loop over its row and column to calculate its scenic score and keep track of the heighest one. However, if the dimensions of the grid are `m x n`, this solution takes `O(m * n * (m + n))` time and `O(1)` space. Cubic time complexity is not good, it works for the given input but it would explode for grids with higher dimensions.
+My first solution was the straight-forward one: for each tree, loop over its row and column to calculate its scenic score and keep track of the heighest one. However, if the dimensions of the grid are `m x n`, this solution takes `O(m * n * (m + n))` time and `O(m * n)` space. Cubic time complexity is not good, it works for the given input but it would explode for grids with higher dimensions.
 
 So I started thinking if there was a way to reuse calculations in order to reduce the time complexity, even if that meant increasing the space complexity... Nothing came to mind, so I decided to explore solutions from other people until I found [this solution](https://github.com/lelouch-of-the-code/Advent-Of-Code-22/blob/main/day8/B.py) in [this Reddit thread](https://www.reddit.com/r/adventofcode/comments/zfpnka/comment/izd8iy6/?utm_source=share&utm_medium=web2x&context=3), which claimed to take `O(m * n)` time. So, my only job here was to understand that solution and translate it to Javascript, all credit goes to [@lelouch-of-the-code](https://github.com/lelouch-of-the-code).
 
@@ -117,19 +117,25 @@ Now, the question you need to ask yourself is: what information do I need to com
 -   For `(7, 3)`, I need to know that it will be blocked by `(∞, 0)` -> viewing distance: 3
 -   For `(3, 4)`, I need to know that it will be blocked by `(3, 2)` -> viewing distance: 2
 
-Maybe this sample is not representative, but hopefully it's enough to understand that if a tree `(h1, b1)` is blocked by a tree `(h2, b2)`, then the viewing distance of `h1` in that direction will be `b1 - b2` (we count all trees behind `h1` and then subtract all trees behind `h2`, the blocking tree).
+First, we notice that if a tree `(h1, b1)` is blocked by a tree `(h2, b2)`, then the viewing distance of `h1` in that direction will be `b1 - b2` (we count all trees behind `h1` and then subtract all trees behind `h2`, the blocking tree). So, we only care about the blocker trees. This means that as soon as we reach a tree of height `h`, we no longer care about the trees with height smaller than `h`, because we know they will never be blocker: if `h` itself is not blocking a future tree, trees with smaller heights won't block it either.
 
-So, we only care about the blocker trees. This means that as soon as we reach a tree of height `h`, we no longer care about the trees with height smaller than `h`, because we know they will never be blocker: if `h` itself is not blocking a future tree, smaller heights won't block it either.
-
-With this ideas in mind, we can build ourself a stack to keep track of these `(h, b)` pairs, and update it as follows:
+With these ideas in mind, we can build a stack to keep track of these `(h, b)` pairs, and update it as follows:
 
 -   Initially, the stack contains the fake tree: `[(∞, 0)]`.
 -   Then, for each tree `(h1, b1)`:
     -   We get the last tree of the stack; if its height is smaller than `h1`, we remove it from the stack, because it's not a blocker and will never be for future trees.
-    -   We repeat the previous process until we find a blocker tree `(h2, b2)` (it is guaranteed we'll find one because our stack contains a tree with infinite height, which will always be a blocker). With this information, we can compute the viewing distance of `h1`: `b1 - b2`.
+    -   We repeat the previous process until we find a blocker tree `(h2, b2)` (it is guaranteed we'll find one because our stack contains a tree with infinite height). With this information, we can compute the viewing distance of `h1`: `b1 - b2`.
     -   We add `(h1, b1)` to the stack, as the current tree could be a blocker for future trees.
 
-Since each pair `(h, b)` is added at most once and remove at most once, the complexity of this process will be `O(n)` time / `O(n)` space (if we're looping through a row) or `O(m)` time / `O(m)` space (if we're looping through a column). We also need an additional `O(m * n)` space to keep track of the scenic scores. Hence, as we're looping through all rows and columns, this solution will take `O(m * n)` time and `O(m * n)` space in total, which is way better for grids with higher dimensions.
+Since each pair `(h, b)` is added at most once and remove at most once, the complexity of this process will be `O(n)` time and `O(n)` space (if we're looping through a row) or `O(m)` time and `O(m)` space (if we're looping through a column).
+
+As for the rest of the solution:
+
+-   We repeat the process for each row and column, so that's `O(m * n)` time and `O(m * n)` in total
+-   We need an additional `O(m * n)` space to keep track of the scenic scores
+-   We need an additional `O(m * n)` time to iterate through all the scenic scores
+
+All in all,this solution will take `O(m * n)` time and `O(m * n)` space in total, which is way better that the initial solution.
 
 ```js
 const input = require("./input");
