@@ -83,7 +83,7 @@ Find the highest scenic score amongst all trees.
 
 ### Solution
 
-My first solution was the straight-forward one: for each tree, loop over its row and column to calculate its scenic score and keep track of the heighest one. However, if the dimensions of the grid are `m x n`, this solution takes `O(m * n * (m + n))` time and `O(m * n)` space. Cubic time complexity is not good, it works for the given input but it would explode for grids with higher dimensions.
+My first solution was the straight-forward one: for each tree, loop over its row and column to calculate its scenic score and keep track of the heighest one. However, if the dimensions of the grid are `m x n`, this solution takes `O(m * n * (m + n))` time and `O(1)` space. Cubic time complexity is not good, it works for the given input but it would explode for grids with higher dimensions.
 
 So I started thinking if there was a way to reuse calculations in order to reduce the time complexity, even if that meant increasing the space complexity... Nothing came to mind, so I decided to explore solutions from other people until I found [this solution](https://github.com/lelouch-of-the-code/Advent-Of-Code-22/blob/main/day8/B.py) in [this Reddit thread](https://www.reddit.com/r/adventofcode/comments/zfpnka/comment/izd8iy6/?utm_source=share&utm_medium=web2x&context=3), which claimed to take `O(m * n)` time. So, my only job here was to understand that solution and translate it to Javascript, all credit goes to [@lelouch-of-the-code](https://github.com/lelouch-of-the-code).
 
@@ -135,7 +135,7 @@ As for the rest of the solution:
 -   We need an additional `O(m * n)` space to keep track of the scenic scores
 -   We need an additional `O(m * n)` time to iterate through all the scenic scores
 
-All in all,this solution will take `O(m * n)` time and `O(m * n)` space in total, which is way better that the initial solution.
+All in all,this solution will take `O(m * n)` time and `O(m * n)` space in total, which is better that the initial solution that took `O(m * n * (m + n))` time and `O(1)` space. Yes, we need more space, but the the trade-off will be noticeable for grids with higher dimensions.
 
 ```js
 const input = require("./input");
