@@ -1,70 +1,51 @@
 const input = require("./input");
 
-function solve(terminalOutput) {
-    const directoryContents = getDirectoryContents(terminalOutput);
-
-    return Object.keys(directoryContents)
-        .map((directory) => getDirectorySize(directory, directoryContents))
-        .filter((directorySize) => directorySize < 100000)
-        .reduce((acc, curr) => acc + curr, 0);
-}
-
-function getDirectoryContents(terminalOutputLines) {
-    const directoryContents = {};
+function solve(terminalOutputLines) {
+    const directorySizes = {};
+    const visitedFilePaths = new Set();
 
     let currentDirectoryPath = [];
-    let currentDirectoryId;
 
     for (const line of terminalOutputLines) {
         if (line.startsWith("$ cd")) {
-            const [, , newDirectory] = line.split(" ");
+            const [, , directory] = line.split(" ");
 
-            if (newDirectory === "/") {
+            if (directory === "/") {
                 currentDirectoryPath = ["/"];
-            } else if (newDirectory === "..") {
+            } else if (directory === "..") {
                 currentDirectoryPath.pop();
             } else {
-                currentDirectoryPath.push(newDirectory);
+                currentDirectoryPath.push(directory);
+            }
+        } else if (line !== "$ ls" && !line.startsWith("dir")) {
+            const [fileSize, file] = line.split(" ");
+            const filePath = [...currentDirectoryPath, file].join("/");
+
+            if (visitedFilePaths.has(filePath)) {
+                continue;
             }
 
-            currentDirectoryId = currentDirectoryPath.join("/");
-        } else if (line !== "$ ls") {
-            if (!directoryContents[currentDirectoryId]) {
-                directoryContents[currentDirectoryId] = {
-                    files: {},
-                    directories: {},
-                };
-            }
+            visitedFilePaths.add(filePath);
 
-            if (line.startsWith("dir")) {
-                const [, directory] = line.split(" ");
-                const directoryId = `${currentDirectoryId}/${directory}`;
+            for (let i = 1; i <= currentDirectoryPath.length; i++) {
+                const directoryPath = currentDirectoryPath
+                    .slice(0, i)
+                    .join("/");
 
-                directoryContents[currentDirectoryId].directories[
-                    directoryId
-                ] = 0;
-            } else {
-                const [fileSize, file] = line.split(" ");
+                if (!directorySizes[directoryPath]) {
+                    directorySizes[directoryPath] = 0;
+                }
 
-                directoryContents[currentDirectoryId].files[file] = +fileSize;
+                directorySizes[directoryPath] += Number(fileSize);
             }
         }
     }
 
-    return directoryContents;
-}
-
-function getDirectorySize(directoryId, directoryContents) {
-    let size = 0;
-
-    const { directories, files } = directoryContents[directoryId];
-
-    Object.values(files).forEach((fileSize) => (size += fileSize));
-    Object.keys(directories).forEach(
-        (dirId) => (size += getDirectorySize(dirId, directoryContents))
+    return Object.values(directorySizes).reduce(
+        (totalSize, directorySize) =>
+            directorySize <= 100000 ? totalSize + directorySize : totalSize,
+        0
     );
-
-    return size;
 }
 
 console.log(solve(input));

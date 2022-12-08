@@ -54,82 +54,68 @@ Find the sum of the sizes of all directories with a total size of at most 100000
 
 ### Solution
 
-The problem doesn't mention it, but directory names are not unique. For example, you could have a directory called `foo` and inside it, another directory also called `foo`. This costed me a couple wrong subimissions, until I was able to debug the problem 😅
+Since we're only interested in the directory sizes, we can ignore most of the terminal information.
 
-As for the solution, it's quite straight-forward:
+It is enough to:
 
--   Parse the terminal output to calculate the contents of each directory
--   Calculate the size of each directory using recursion
--   Find the directories with the desired size and compute the sum of their sizes
+-   Keep track of the current directory path
+-   Keep track of the visited files (they could appear more than once)
+
+With this information, everytime we encounter a new file we know its path because we know the current directory path. If it hasn't been visited yet, we can increase the size of the current directory and all of its parent directories.
+
+Once we have the size of each directory, we just need to loop through them in order to calculate the desired answer.
+
+_Note:_ the provided input never visits the same file twice, so we could get rid of the `visitedFilePaths` logic and the solution would still work. However, for the sake of having a strong solution, I decided to keep it that way.
 
 ```js
 const input = require("./input");
 
-function solve(terminalOutput) {
-    const directoryContents = getDirectoryContents(terminalOutput);
-
-    return Object.keys(directoryContents)
-        .map((directory) => getDirectorySize(directory, directoryContents))
-        .filter((directorySize) => directorySize < 100000)
-        .reduce((acc, curr) => acc + curr, 0);
-}
-
-function getDirectoryContents(terminalOutputLines) {
-    const directoryContents = {};
+function solve(terminalOutputLines) {
+    const directorySizes = {};
+    const visitedFilePaths = new Set();
 
     let currentDirectoryPath = [];
-    let currentDirectoryId;
 
     for (const line of terminalOutputLines) {
         if (line.startsWith("$ cd")) {
-            const [, , newDirectory] = line.split(" ");
+            const [, , directory] = line.split(" ");
 
-            if (newDirectory === "/") {
+            if (directory === "/") {
                 currentDirectoryPath = ["/"];
-            } else if (newDirectory === "..") {
+            } else if (directory === "..") {
                 currentDirectoryPath.pop();
             } else {
-                currentDirectoryPath.push(newDirectory);
+                currentDirectoryPath.push(directory);
+            }
+        } else if (line !== "$ ls" && !line.startsWith("dir")) {
+            const [fileSize, file] = line.split(" ");
+            const filePath = [...currentDirectoryPath, file].join("/");
+
+            if (visitedFilePaths.has(filePath)) {
+                continue;
             }
 
-            currentDirectoryId = currentDirectoryPath.join("/");
-        } else if (line !== "$ ls") {
-            if (!directoryContents[currentDirectoryId]) {
-                directoryContents[currentDirectoryId] = {
-                    files: {},
-                    directories: {},
-                };
-            }
+            visitedFilePaths.add(filePath);
 
-            if (line.startsWith("dir")) {
-                const [, directory] = line.split(" ");
-                const directoryId = `${currentDirectoryId}/${directory}`;
+            for (let i = 1; i <= currentDirectoryPath.length; i++) {
+                const directoryPath = currentDirectoryPath
+                    .slice(0, i)
+                    .join("/");
 
-                directoryContents[currentDirectoryId].directories[
-                    directoryId
-                ] = 0;
-            } else {
-                const [fileSize, file] = line.split(" ");
+                if (!directorySizes[directoryPath]) {
+                    directorySizes[directoryPath] = 0;
+                }
 
-                directoryContents[currentDirectoryId].files[file] = +fileSize;
+                directorySizes[directoryPath] += Number(fileSize);
             }
         }
     }
 
-    return directoryContents;
-}
-
-function getDirectorySize(directoryId, directoryContents) {
-    let size = 0;
-
-    const { directories, files } = directoryContents[directoryId];
-
-    Object.values(files).forEach((fileSize) => (size += fileSize));
-    Object.keys(directories).forEach(
-        (dirId) => (size += getDirectorySize(dirId, directoryContents))
+    return Object.values(directorySizes).reduce(
+        (totalSize, directorySize) =>
+            directorySize <= 100000 ? totalSize + directorySize : totalSize,
+        0
     );
-
-    return size;
 }
 
 console.log(solve(input));
@@ -150,77 +136,59 @@ Very similar to the previous solution, nothing interesting to add.
 ```js
 const input = require("./input");
 
-function solve(terminalOutput) {
-    const directoryContents = getDirectoryContents(terminalOutput);
-
-    const availableSpace = 70000000 - getDirectorySize("/", directoryContents);
-    const missingSpace = 30000000 - availableSpace;
-
-    const candidateDirectories = Object.keys(directoryContents)
-        .map((directory) => +getDirectorySize(directory, directoryContents))
-        .filter((directorySize) => directorySize >= missingSpace);
-
-    candidateDirectories.sort((a, b) => a - b);
-
-    return candidateDirectories[0];
-}
-
-function getDirectoryContents(terminalOutputLines) {
-    const directoryContents = {};
+function solve(terminalOutputLines) {
+    const directorySizes = {};
+    const visitedFilePaths = new Set();
 
     let currentDirectoryPath = [];
-    let currentDirectoryId;
 
     for (const line of terminalOutputLines) {
         if (line.startsWith("$ cd")) {
-            const [, , newDirectory] = line.split(" ");
+            const [, , directory] = line.split(" ");
 
-            if (newDirectory === "/") {
+            if (directory === "/") {
                 currentDirectoryPath = ["/"];
-            } else if (newDirectory === "..") {
+            } else if (directory === "..") {
                 currentDirectoryPath.pop();
             } else {
-                currentDirectoryPath.push(newDirectory);
+                currentDirectoryPath.push(directory);
+            }
+        } else if (line !== "$ ls" && !line.startsWith("dir")) {
+            const [fileSize, file] = line.split(" ");
+            const filePath = [...currentDirectoryPath, file].join("/");
+
+            if (visitedFilePaths.has(filePath)) {
+                continue;
             }
 
-            currentDirectoryId = currentDirectoryPath.join("/");
-        } else if (line !== "$ ls") {
-            if (!directoryContents[currentDirectoryId]) {
-                directoryContents[currentDirectoryId] = {
-                    files: {},
-                    directories: {},
-                };
-            }
+            visitedFilePaths.add(filePath);
 
-            if (line.startsWith("dir")) {
-                const [, directory] = line.split(" ");
-                const directoryId = `${currentDirectoryId}/${directory}`;
+            for (let i = 1; i <= currentDirectoryPath.length; i++) {
+                const directoryPath = currentDirectoryPath
+                    .slice(0, i)
+                    .join("/");
 
-                directoryContents[currentDirectoryId].directories[
-                    directoryId
-                ] = 0;
-            } else {
-                const [fileSize, file] = line.split(" ");
+                if (!directorySizes[directoryPath]) {
+                    directorySizes[directoryPath] = 0;
+                }
 
-                directoryContents[currentDirectoryId].files[file] = +fileSize;
+                directorySizes[directoryPath] += Number(fileSize);
             }
         }
     }
 
-    return directoryContents;
-}
+    const availableSpace = 70000000 - directorySizes["/"];
+    const missingSpace = 30000000 - availableSpace;
 
-function getDirectorySize(directoryId, directoryContents) {
-    let size = 0;
+    let minSizeDirectory = Number.POSITIVE_INFINITY;
 
-    const { directories, files } = directoryContents[directoryId];
+    Object.values(directorySizes).forEach((directorySize) => {
+        if (directorySize >= missingSpace && directorySize < minSizeDirectory) {
+            minSizeDirectory = directorySize;
+        }
+    });
 
-    Object.values(files).forEach((fileSize) => (size += fileSize));
-    Object.keys(directories).forEach(
-        (dirId) => (size += getDirectorySize(dirId, directoryContents))
-    );
-
-    return size;
+    return minSizeDirectory;
 }
 
 console.log(solve(input));
