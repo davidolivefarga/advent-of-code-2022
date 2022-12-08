@@ -100,7 +100,7 @@ Imagine you have this row of trees, and you're looping it from left to right:
 To avoid falling outside the edge, we'll add a fake tree with infinite height at the left:
 
 ```
-∞ - 0 - 3 - 7 - 3
+∞ - 3 - 0 - 3 - 7 - 3
 ```
 
 For each tree, we keep track of the number of trees that it has behind it (the fake tree doesn't count):
