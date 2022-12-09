@@ -65,3 +65,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 6: Tuning Trouble](./day6)          | ⭐️ ⭐️ |
 | [Day 7: No Space Left On Device](./day7) | ⭐️ ⭐️ |
 | [Day 8: Treetop Tree House](./day8)      | ⭐️ ⭐️ |
+| [Day 9: Rope Bridge](./day9)             | ⭐️ ⭐️ |
