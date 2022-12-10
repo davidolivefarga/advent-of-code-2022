@@ -9,10 +9,17 @@ const puzzleNumber = process.argv[3];
 
 exec(`node day${dayNumber}/puzzle${puzzleNumber}`, (error, stdout, stderr) => {
     if (error) {
-        console.error(`Error running solution: ${error}`);
+        console.error("Error running solution\n", error);
         return;
     }
 
-    stdout && console.log("Solution:", stdout);
-    stderr && console.error("Error:", stderr);
+    if (stdout) {
+        console.log("Solution:\n");
+        console.log(stdout);
+    }
+
+    if (stderr) {
+        console.log("Error:\n");
+        console.log(stderr);
+    }
 });
