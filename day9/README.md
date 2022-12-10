@@ -34,7 +34,7 @@ const input = [
 
 There's a rope with two knots, called `head` and `tail`. Since `head` and `tail` are connected by the rope, `head` and `tail` will always be touching (diagonally, adjacent and even overlapping count as touching). If, after moving `head`, `head` and `tail` are not touching:
 
--   If `head` is ever two steps directly up, down, left, or right from `tail`, then `tail` must also move one step in that direction.
+-   If `head` is two steps directly up, down, left, or right from `tail`, then `tail` must also move one step in that direction.
 -   If `head` and `tail` aren't in the same row or column, then `tail` must move diagonally in the direction that keep it close to `head`.
 
 Find all the positions visited by `tail` after applying all the movements specified in the instructions.
