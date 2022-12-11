@@ -67,3 +67,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 8: Treetop Tree House](./day8)      | ⭐️ ⭐️ |
 | [Day 9: Rope Bridge](./day9)             | ⭐️ ⭐️ |
 | [Day 10: Cathode-Ray Tube](./day10)      | ⭐️ ⭐️ |
+| [Day 11: Monkey in the Middle](./day11)  | ⭐️ ⭐️ |
