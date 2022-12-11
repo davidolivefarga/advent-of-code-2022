@@ -31,7 +31,7 @@ const input = [
     },
     {
         items: [79, 60, 97],
-        operation: { operator: "*", value: "self" },
+        operation: { operator: "*", value: "item" },
         test: { divisor: 13, caseTrue: 1, caseFalse: 3 },
     },
     {
