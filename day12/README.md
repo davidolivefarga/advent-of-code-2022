@@ -32,21 +32,17 @@ Find the minimum number of steps required to move from `S` to `E`.
 
 As preparation, we transform the elevation characters to integers to facilitate calculations and locate the positions of `S` and `E`.
 
-Then, for the algorithm:
-
--   Initialise the current positions with `S` position
--   Then, while we have current positions:
-    -   Initialise the next positions with an empty array
-    -   Then, for each current position:
-        -   If it's `E` position, we're finished
-        -   If it's a position we already visited, we ignore it
-        -   If it's possible to move up/down/left/right, we add these positions to the list of next positions
-    -   Next positions become the new current positions
-
-As in previous puzzles, we encode the position coordinates so that we can use a set to easily avoid visiting the same position multiple times.
+Then, we just need to apply a [BFS algorithm](https://en.wikipedia.org/wiki/Breadth-first_search) adapted to the situation.
 
 ```js
 const input = require("./input");
+
+const DIRECTIONS = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+];
 
 function solve(grid) {
     const rows = grid.length;
@@ -59,55 +55,50 @@ function solve(grid) {
         for (let c = 0; c < cols; c++) {
             if (grid[r][c] === "S") {
                 start = [r, c];
-                grid[r][c] = "a".charCodeAt(0);
+                grid[r][c] = "a";
             } else if (grid[r][c] === "E") {
                 end = [r, c];
-                grid[r][c] = "z".charCodeAt(0);
-            } else {
-                grid[r][c] = grid[r][c].charCodeAt(0);
+                grid[r][c] = "z";
             }
+
+            grid[r][c] = grid[r][c].charCodeAt(0);
         }
     }
 
-    const visitedPositions = new Set();
+    const visited = Array.from({ length: rows }, () => new Array(cols));
 
-    let currentPositions = [start];
+    visited[start[0]][start[1]] = true;
+
+    let positions = [start];
     let steps = 0;
 
-    while (currentPositions.length) {
+    while (positions.length) {
         const nextPositions = [];
 
-        for (const [r, c] of currentPositions) {
+        for (const [r, c] of positions) {
             if (r === end[0] && c === end[1]) {
                 return steps;
             }
 
-            const encodedPosition = `${r}@${c}`;
+            DIRECTIONS.forEach(([dr, dc]) => {
+                const nr = r + dr;
+                const nc = c + dc;
 
-            if (visitedPositions.has(encodedPosition)) {
-                continue;
-            }
-
-            visitedPositions.add(encodedPosition);
-
-            if (r > 0 && grid[r - 1][c] <= grid[r][c] + 1) {
-                nextPositions.push([r - 1, c]);
-            }
-
-            if (r < rows - 1 && grid[r + 1][c] <= grid[r][c] + 1) {
-                nextPositions.push([r + 1, c]);
-            }
-
-            if (c > 0 && grid[r][c - 1] <= grid[r][c] + 1) {
-                nextPositions.push([r, c - 1]);
-            }
-
-            if (c < cols - 1 && grid[r][c + 1] <= grid[r][c] + 1) {
-                nextPositions.push([r, c + 1]);
-            }
+                if (
+                    nr >= 0 &&
+                    nr < rows &&
+                    nc >= 0 &&
+                    nc < cols &&
+                    !visited[nr][nc] &&
+                    grid[nr][nc] - grid[r][c] <= 1
+                ) {
+                    nextPositions.push([nr, nc]);
+                    visited[nr][nc] = true;
+                }
+            });
         }
 
-        currentPositions = nextPositions;
+        positions = nextPositions;
         steps++;
     }
 }
@@ -123,10 +114,17 @@ Same situation as before, but this time we want to find the minimum number of st
 
 ### Solution
 
-Same algorithm as before, but this time we start from `E` and stop as soon as we reach an `a` position.
+Same solution as before, but this time we start from `E` and stop as soon as we reach an `a` position.
 
 ```js
 const input = require("./input");
+
+const DIRECTIONS = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+];
 
 function solve(grid) {
     const rows = grid.length;
@@ -139,55 +137,50 @@ function solve(grid) {
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             if (grid[r][c] === "S") {
-                grid[r][c] = "a".charCodeAt(0);
+                grid[r][c] = "a";
             } else if (grid[r][c] === "E") {
                 start = [r, c];
-                grid[r][c] = "z".charCodeAt(0);
-            } else {
-                grid[r][c] = grid[r][c].charCodeAt(0);
+                grid[r][c] = "z";
             }
+
+            grid[r][c] = grid[r][c].charCodeAt(0);
         }
     }
 
-    const visitedPositions = new Set();
+    const visited = Array.from({ length: rows }, () => new Array(cols));
 
-    let currentPositions = [start];
+    visited[start[0]][start[1]] = true;
+
+    let positions = [start];
     let steps = 0;
 
-    while (currentPositions.length) {
+    while (positions.length) {
         const nextPositions = [];
 
-        for (const [r, c] of currentPositions) {
+        for (const [r, c] of positions) {
             if (grid[r][c] === target) {
                 return steps;
             }
 
-            const encodedPosition = `${r}@${c}`;
+            DIRECTIONS.forEach(([dr, dc]) => {
+                const nr = r + dr;
+                const nc = c + dc;
 
-            if (visitedPositions.has(encodedPosition)) {
-                continue;
-            } else {
-                visitedPositions.add(encodedPosition);
-            }
-
-            if (r > 0 && grid[r - 1][c] >= grid[r][c] - 1) {
-                nextPositions.push([r - 1, c]);
-            }
-
-            if (r < rows - 1 && grid[r + 1][c] >= grid[r][c] - 1) {
-                nextPositions.push([r + 1, c]);
-            }
-
-            if (c > 0 && grid[r][c - 1] >= grid[r][c] - 1) {
-                nextPositions.push([r, c - 1]);
-            }
-
-            if (c < cols - 1 && grid[r][c + 1] >= grid[r][c] - 1) {
-                nextPositions.push([r, c + 1]);
-            }
+                if (
+                    nr >= 0 &&
+                    nr < rows &&
+                    nc >= 0 &&
+                    nc < cols &&
+                    !visited[nr][nc] &&
+                    grid[r][c] - grid[nr][nc] <= 1
+                ) {
+                    nextPositions.push([nr, nc]);
+                    visited[nr][nc] = true;
+                }
+            });
         }
 
-        currentPositions = nextPositions;
+        positions = nextPositions;
         steps++;
     }
 }
