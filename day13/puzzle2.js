@@ -1,92 +1,55 @@
 const input = require("./input");
 
 function solve(pairs) {
-    const dividerPacket1 = [[2]];
-    const dividerPacket2 = [[6]];
+    const extraList1 = [[2]];
+    const extraList2 = [[6]];
 
-    const allLists = [dividerPacket1, dividerPacket2];
+    const allLists = [extraList1, extraList2];
 
-    pairs.forEach(([rawList1, rawList2]) => {
-        allLists.push(parseList(rawList1), parseList(rawList2));
+    pairs.forEach((pair) => {
+        const list1 = eval(pair[0]);
+        const list2 = eval(pair[1]);
+
+        allLists.push(list1, list2);
     });
 
-    allLists.sort((list1, list2) => (isOrderedListPair(list1, list2) ? -1 : 1));
+    allLists.sort(compareLists);
 
-    const dividerPacket1SortedPos = allLists.indexOf(dividerPacket1) + 1;
-    const dividerPacket2SortedPos = allLists.indexOf(dividerPacket2) + 1;
+    const extraList1Position = allLists.indexOf(extraList1) + 1;
+    const extraList2Position = allLists.indexOf(extraList2) + 1;
 
-    return dividerPacket1SortedPos * dividerPacket2SortedPos;
+    return extraList1Position * extraList2Position;
 }
 
-function parseList(rawList) {
-    const listStack = [[]];
-
-    let currentNumber = "";
-
-    for (const c of rawList) {
-        if (c === "[") {
-            const newList = [];
-
-            listStack.push(newList);
-        } else if (c === "]" || c == ",") {
-            const currentList = listStack[listStack.length - 1];
-
-            if (currentNumber) {
-                currentList.push(Number(currentNumber));
-
-                currentNumber = "";
-            }
-
-            if (c === "]") {
-                const parentList = listStack[listStack.length - 2];
-
-                parentList.push(currentList);
-
-                listStack.pop();
-            }
-        } else {
-            currentNumber += c;
-        }
-    }
-
-    return listStack[0][0];
-}
-
-function isOrderedListPair(list1, list2) {
-    let isOrdered = undefined;
+function compareLists(list1, list2) {
+    let compareResult = 0;
 
     let i = 0;
 
-    while (list1[i] !== undefined && list2[i] !== undefined) {
+    while (i < list1.length && i < list2.length) {
         const item1 = list1[i];
         const item2 = list2[i];
 
         if (Array.isArray(item1) && Array.isArray(item2)) {
-            isOrdered = isOrderedListPair(item1, item2);
+            compareResult = compareLists(item1, item2);
         } else if (Array.isArray(item1)) {
-            isOrdered = isOrderedListPair(item1, [item2]);
+            compareResult = compareLists(item1, [item2]);
         } else if (Array.isArray(item2)) {
-            isOrdered = isOrderedListPair([item1], item2);
-        } else if (item1 < item2) {
-            isOrdered = true;
-        } else if (item1 > item2) {
-            isOrdered = false;
+            compareResult = compareLists([item1], item2);
+        } else {
+            compareResult = Math.sign(item1 - item2);
         }
 
-        if (isOrdered !== undefined) {
-            return isOrdered;
+        if (compareResult !== 0) {
+            return compareResult;
         }
 
         i++;
     }
 
-    if (list1[i] !== undefined) {
-        isOrdered = false;
-    } else if (list2[i] !== undefined) {
-        isOrdered = true;
-    }
+    compareResult = Math.sign(list1.length - list2.length);
 
-    return isOrdered;
+    return compareResult;
 }
 
 console.log(solve(input));
