@@ -129,11 +129,7 @@ Find the monkey business after `10000` rounds.
 
 The solution for the first puzzle won't work here because the item values become _very_ big, _very_ quick, so they won't fit in 64 bits. Even if you use a library like [bigint](https://www.npmjs.com/package/bigint) (to represent numbers as strings, and operate on them this way), the numbers are so big that the solution will take a lot of time to finish.
 
-The key idea is to realise that the monkeys only care if the numbers are divisible by their `divisor` or not. This means that some items are the same in the eyes of the monkeys. For example, imagine that there are two monkeys and their divisors are `3` and `5`. To them, an item with value `1` will be the same as any item with value `1 + 3 * 5 * k`, because the `3 * 5 * k` part will always be divisible by both `3` and `5`.
-
-However, you might ask: what about the monkey operations? Well, [the modulo operator follows the distributive property with both `+` and `*`](https://en.wikipedia.org/wiki/Modular_arithmetic#Properties), so this won't affect how monkeys pass items to each other.
-
-In conclusion, we can always reduce the item values applying modulo `m`, where `m` is the product of the `divisor` value of all monkeys. This will bound the maximum value of items and prevent them from occupying more than 64 bits.
+The key idea is to realise that the monkeys only care if the numbers are divisible by their `divisor` or not. This means that some items are the same in the eyes of the monkeys. For example, imagine that there are two monkeys and their divisors are `3` and `5`. To them, an item with value `1` will be the same as any item with value `1 + 3 * 5 * k`, because the `3 * 5 * k` part will always be divisible by both `3` and `5`. This means we can always reduce the item values applying modulo `m`, where `m` is the product of the `divisor` value of all monkeys. However, you might ask: what about the monkey operations? Well, [the modulo operator follows the distributive property with both `+` and `*`](https://en.wikipedia.org/wiki/Modular_arithmetic#Properties), so they are compatible with the modulo operation.
 
 _Note_: this will work for the given input, but if the number of monkeys grows (and hence, the product of their `divisor` value also grows), item values might still take more than 64 bits. In that case, we could use the least common multiple of all `divisor` values instead of simply multiplying them; it that's still not enough, we would need to use string representation using a library like `bigint`.
 
