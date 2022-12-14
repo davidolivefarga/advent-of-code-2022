@@ -70,3 +70,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 11: Monkey in the Middle](./day11)    | ⭐️ ⭐️ |
 | [Day 12: Hill Climbing Algorithm](./day12) | ⭐️ ⭐️ |
 | [Day 13: Distress Signal](./day13)         | ⭐️ ⭐️ |
+| [Day 14: Regolith Reservoir](./day14)      | ⭐️ ⭐️ |
