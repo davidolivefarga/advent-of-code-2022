@@ -72,3 +72,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 13: Distress Signal](./day13)         | ⭐️ ⭐️ |
 | [Day 14: Regolith Reservoir](./day14)      | ⭐️ ⭐️ |
 | [Day 15: Beacon Exclusion Zone](./day15)   | ⭐️ ⭐️ |
+| [Day 16: Proboscidea Volcanium](./day16)   | ⭐️ ⭐️ |
