@@ -73,3 +73,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 14: Regolith Reservoir](./day14)      | ⭐️ ⭐️ |
 | [Day 15: Beacon Exclusion Zone](./day15)   | ⭐️ ⭐️ |
 | [Day 16: Proboscidea Volcanium](./day16)   | ⭐️ ⭐️ |
+| [Day 17: Pyroclastic Flow](./day17)        | ⭐️ ⭐️ |
