@@ -74,3 +74,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 15: Beacon Exclusion Zone](./day15)   | ⭐️ ⭐️ |
 | [Day 16: Proboscidea Volcanium](./day16)   | ⭐️ ⭐️ |
 | [Day 17: Pyroclastic Flow](./day17)        | ⭐️ ⭐️ |
+| [Day 18: Boiling Boulders](./day18)        | ⭐️ ⭐️ |
