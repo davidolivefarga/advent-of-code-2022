@@ -75,3 +75,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 16: Proboscidea Volcanium](./day16)   | ⭐️ ⭐️ |
 | [Day 17: Pyroclastic Flow](./day17)        | ⭐️ ⭐️ |
 | [Day 18: Boiling Boulders](./day18)        | ⭐️ ⭐️ |
+| [Day 19: Not Enough Minerals](./day19)     | ⭐️ ⭐️ |
