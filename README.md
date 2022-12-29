@@ -55,24 +55,25 @@ There are three commands:
 
 Here's the list of all days, along with the stars obtained in each of them.
 
-| Day                                        |  Stars  |
-| :----------------------------------------- | :-----: |
-| [Day 1: Calorie Counting](./day1)          | ⭐️ ⭐️ |
-| [Day 2: Rock Paper Scissors](./day2)       | ⭐️ ⭐️ |
-| [Day 3: Rucksack Reorganization](./day3)   | ⭐️ ⭐️ |
-| [Day 4: Camp Cleanup](./day4)              | ⭐️ ⭐️ |
-| [Day 5: Supply Stacks](./day5)             | ⭐️ ⭐️ |
-| [Day 6: Tuning Trouble](./day6)            | ⭐️ ⭐️ |
-| [Day 7: No Space Left On Device](./day7)   | ⭐️ ⭐️ |
-| [Day 8: Treetop Tree House](./day8)        | ⭐️ ⭐️ |
-| [Day 9: Rope Bridge](./day9)               | ⭐️ ⭐️ |
-| [Day 10: Cathode-Ray Tube](./day10)        | ⭐️ ⭐️ |
-| [Day 11: Monkey in the Middle](./day11)    | ⭐️ ⭐️ |
-| [Day 12: Hill Climbing Algorithm](./day12) | ⭐️ ⭐️ |
-| [Day 13: Distress Signal](./day13)         | ⭐️ ⭐️ |
-| [Day 14: Regolith Reservoir](./day14)      | ⭐️ ⭐️ |
-| [Day 15: Beacon Exclusion Zone](./day15)   | ⭐️ ⭐️ |
-| [Day 16: Proboscidea Volcanium](./day16)   | ⭐️ ⭐️ |
-| [Day 17: Pyroclastic Flow](./day17)        | ⭐️ ⭐️ |
-| [Day 18: Boiling Boulders](./day18)        | ⭐️ ⭐️ |
-| [Day 19: Not Enough Minerals](./day19)     | ⭐️ ⭐️ |
+| Day                                         |  Stars  |
+| :------------------------------------------ | :-----: |
+| [Day 1: Calorie Counting](./day1)           | ⭐️ ⭐️ |
+| [Day 2: Rock Paper Scissors](./day2)        | ⭐️ ⭐️ |
+| [Day 3: Rucksack Reorganization](./day3)    | ⭐️ ⭐️ |
+| [Day 4: Camp Cleanup](./day4)               | ⭐️ ⭐️ |
+| [Day 5: Supply Stacks](./day5)              | ⭐️ ⭐️ |
+| [Day 6: Tuning Trouble](./day6)             | ⭐️ ⭐️ |
+| [Day 7: No Space Left On Device](./day7)    | ⭐️ ⭐️ |
+| [Day 8: Treetop Tree House](./day8)         | ⭐️ ⭐️ |
+| [Day 9: Rope Bridge](./day9)                | ⭐️ ⭐️ |
+| [Day 10: Cathode-Ray Tube](./day10)         | ⭐️ ⭐️ |
+| [Day 11: Monkey in the Middle](./day11)     | ⭐️ ⭐️ |
+| [Day 12: Hill Climbing Algorithm](./day12)  | ⭐️ ⭐️ |
+| [Day 13: Distress Signal](./day13)          | ⭐️ ⭐️ |
+| [Day 14: Regolith Reservoir](./day14)       | ⭐️ ⭐️ |
+| [Day 15: Beacon Exclusion Zone](./day15)    | ⭐️ ⭐️ |
+| [Day 16: Proboscidea Volcanium](./day16)    | ⭐️ ⭐️ |
+| [Day 17: Pyroclastic Flow](./day17)         | ⭐️ ⭐️ |
+| [Day 18: Boiling Boulders](./day18)         | ⭐️ ⭐️ |
+| [Day 19: Not Enough Minerals](./day19)      | ⭐️ ⭐️ |
+| [Day 20: Grove Positioning System](./day20) | ⭐️ ⭐️ |
