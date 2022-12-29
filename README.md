@@ -77,3 +77,4 @@ Here's the list of all days, along with the stars obtained in each of them.
 | [Day 18: Boiling Boulders](./day18)         | ⭐️ ⭐️ |
 | [Day 19: Not Enough Minerals](./day19)      | ⭐️ ⭐️ |
 | [Day 20: Grove Positioning System](./day20) | ⭐️ ⭐️ |
+| [Day 21: Monkey Math](./day21)              | ⭐️ ⭐️ |
