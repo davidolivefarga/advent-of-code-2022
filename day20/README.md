@@ -32,7 +32,7 @@ Then, for each number of in the list:
 2. Generate the move permutation representing that change in positions.
 3. Update the mixing permutation by composing it with the move permutation.
 
-At the end of this process, you will end up with a permutation that describes where to move numbers in the original list to obtain the mixed list.
+At the end of this process, you will end up with a permutation that describes where to move numbers in the original list to obtain the mixed list, so you can build the mixed list and get the data required to produce the puzzle answer.
 
 There are a couple of tricky parts in this process:
 
@@ -41,10 +41,10 @@ There are a couple of tricky parts in this process:
     -   Use a [trick](https://stackoverflow.com/a/4467559) to ensure the result of the modulo operation is positive.
 -   Generating the move permutation might be a bit hard to follow, but it can easily be seen with an example.
 
-    Suppose you start with the identity permutation `[0,1,2,3,4]`.
+    Suppose you start with the identity permutation `[0, 1, 2, 3 ,4]`.
 
-    -   If we want to move position `1` to position `4`, we will end up with `[0,2,3,4,1]`.
-    -   If we want to move position `4` to position `1` , we will end up with `[0,4,1,2,3]`.
+    -   If we want to move position `1` to position `4`, we will end up with `[0, 2, 3, 4, 1]`.
+    -   If we want to move position `4` to position `1` , we will end up with `[0, 4, 1, 2, 3]`.
 
     Following these examples, it's easy to produce some code that generates the move permutation.
 
